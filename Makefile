@@ -3,7 +3,7 @@ PYTHON = $(VENV)/bin/python3
 PIP = $(VENV)/bin/pip3
 
 run: $(VENV)/bin/activate
-	$(PYTHON) bot.py
+	$(PYTHON) src/bot.py
 
 $(VENV)/bin/activate: requirements.txt
 	python3 -m venv $(VENV)

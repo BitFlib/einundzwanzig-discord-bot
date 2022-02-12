@@ -10,5 +10,5 @@ $(VENV)/bin/activate: requirements.txt
 	$(PIP) install -r requirements.txt
 	
 clean:
-	rm -rf __pycache__
+	rm -rf src/__pycache__
 	rm -rf $(VENV)

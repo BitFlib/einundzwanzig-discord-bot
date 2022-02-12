@@ -16,3 +16,7 @@ DISCORD_TOKEN=YOUR_SECRET_DISCORD_TOKEN
 2. Add the bot to your channel
 
 3. execute `make run` to install all dependencies and run the bot
+
+## Commands
+- `!moskauzeit` (or short `!mz`): Returns the amount of sats you would receive for 1 USD also known as moscow time and the counterpart for EUR and CHF
+- `!preis`: Returns the current price for 1 BTC in USD, EUR and CHF

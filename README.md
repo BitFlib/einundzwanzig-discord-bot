@@ -20,3 +20,5 @@ DISCORD_TOKEN=YOUR_SECRET_DISCORD_TOKEN
 ## Commands
 - `!moskauzeit` (or short `!mz`): Returns the amount of sats you would receive for 1 USD also known as moscow time and the counterpart for EUR and CHF
 - `!preis`: Returns the current price for 1 BTC in USD, EUR and CHF
+- `!sats`: Returns the amount of sats for a given currency and currency amount
+- `!usd`/`!eur`/`!chf`: Returns the amount of given currency (dependend on command) for a given amount of sats

@@ -25,7 +25,7 @@ async def fiat(message):
         response = f'{amount_sats} sats sind aktuell {amount_fiat} {currency}'
     else:
         response = 'Ein Fehler ist aufgetreten. \nBitte versuche es spaeter erneut.'
-    await message.channel.send(response)
+    await message.reply(response)
 
 async def moscow_time(message):
     exchange_rates = __get_exchange_rates()
@@ -42,7 +42,7 @@ async def moscow_time(message):
         response += f'\n\t{mt_chf} sats/CHF'
     else:
         response = 'Ein Fehler ist aufgetreten. \nBitte versuche es spaeter erneut.'
-    await message.channel.send(response)
+    await message.reply(response)
 
 
 async def price(message):
@@ -57,7 +57,7 @@ async def price(message):
         response += f'\n\t{price_chf} CHF/BTC'
     else:
         response = 'Ein Fehler ist aufgetreten. \nBitte versuche es spaeter erneut.'
-    await message.channel.send(response)
+    await message.reply(response)
 
 async def sats(message):
     exchange_rates = __get_exchange_rates()
@@ -77,4 +77,4 @@ async def sats(message):
         response = f'{amount_fiat} {currency} sind aktuell {amount_sats} sats.'
     else:
         response = 'Ein Fehler ist aufgetreten. \nBitte versuche es spaeter erneut.'
-    await message.channel.send(response)
+    await message.reply(response)

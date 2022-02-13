@@ -7,7 +7,7 @@ async def blocktime(message):
     except requests.exceptions.RequestException as e:
         print(e)  
         response = 'Ein Fehler ist aufgetreten. Bitte versuche es spaeter erneut.'
-        await message.channel.send(response)
+        await message.reply(response)
         return
     response = f'Blockzeit: {block_height_tip}'
-    await message.channel.send(response)
+    await message.reply(response)

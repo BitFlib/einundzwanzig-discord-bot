@@ -9,6 +9,20 @@ def __get_exchange_rates():
         print(e)
         return -1
 
+def __us_to_de_float(us_float, target_precision):
+    float_format = '{:,.' + str(target_precision) + 'f}'
+    us_float = float_format.format(float(us_float))
+    de_float = us_float.replace(',','#')
+    de_float = de_float.replace('.',',')
+    de_float = de_float.replace('#','.')
+    return de_float
+
+def __de_to_us_float(de_float, target_precision):
+    float_format = '{:.' + str(target_precision) + 'f}'
+    us_float = de_float.replace(',','.')
+    us_float = float_format.format(float(us_float))
+    return float(us_float)
+
 async def fiat(message):
     exchange_rates = __get_exchange_rates()
     if exchange_rates != -1:
@@ -20,8 +34,8 @@ async def fiat(message):
             return
         exchange_rate_fiat = float(exchange_rates[currency])
         amount_fiat = float(exchange_rate_fiat / 100000000 * amount_sats)
-        amount_sats = '{:,.0f}'.format(amount_sats)
-        amount_fiat = '{:,.2f}'.format(amount_fiat)
+        amount_sats = __us_to_de_float(amount_sats,0)
+        amount_fiat = __us_to_de_float(amount_fiat,2)
         response = f'{amount_sats} sats sind aktuell {amount_fiat} {currency}'
     else:
         response = 'Ein Fehler ist aufgetreten. \nBitte versuche es spaeter erneut.'
@@ -49,11 +63,11 @@ async def price(message):
     exchange_rates = __get_exchange_rates()
     if exchange_rates != -1:
         response = 'Aktueller Preis:'
-        price_usd = '{:,.2f}'.format(float(exchange_rates['USD']))
+        price_usd = __us_to_de_float(exchange_rates['USD'],2)
         response += f'\n\t{price_usd} USD/BTC'
-        price_eur = '{:,.2f}'.format(float(exchange_rates['EUR']))
+        price_eur = __us_to_de_float(exchange_rates['EUR'],2)
         response += f'\n\t{price_eur} EUR/BTC'
-        price_chf = '{:,.2f}'.format(float(exchange_rates['CHF']))
+        price_chf = __us_to_de_float(exchange_rates['CHF'],2)
         response += f'\n\t{price_chf} CHF/BTC'
     else:
         response = 'Ein Fehler ist aufgetreten. \nBitte versuche es spaeter erneut.'
@@ -68,12 +82,13 @@ async def sats(message):
                 currency = currency.upper()
             else:
                 raise ValueError()
-            amount_fiat = float(message.content.split(' ')[2])
+            amount_fiat = message.content.split(' ')[2]
+            amount_fiat = __de_to_us_float(amount_fiat,2)
         except:
             await message.reply('Fehlerhafte Eingabe. \nBeispielaufruf: !sats eur 100')
             return
-        amount_sats = '{:,.0f}'.format(amount_fiat/float(exchange_rates[currency]) * 100000000)
-        amount_fiat = '{:,.2f}'.format(amount_fiat)
+        amount_sats = __us_to_de_float(amount_fiat/float(exchange_rates[currency]) * 100000000,0)
+        amount_fiat = __us_to_de_float(amount_fiat,2)
         response = f'{amount_fiat} {currency} sind aktuell {amount_sats} sats.'
     else:
         response = 'Ein Fehler ist aufgetreten. \nBitte versuche es spaeter erneut.'

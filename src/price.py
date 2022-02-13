@@ -9,6 +9,24 @@ def __get_exchange_rates():
         print(e)
         return -1
 
+async def fiat(message):
+    exchange_rates = __get_exchange_rates()
+    if exchange_rates != -1:
+        try:
+            currency = str(message.content[1:4].upper())
+            amount_sats = int(message.content.split(' ')[1])
+        except:
+            await message.reply('Fehlerhafte Eingabe. \nBeispielaufruf: !eur 100')
+            return
+        exchange_rate_fiat = float(exchange_rates[currency])
+        amount_fiat = float(exchange_rate_fiat / 100000000 * amount_sats)
+        amount_sats = '{:,.0f}'.format(amount_sats)
+        amount_fiat = '{:,.2f}'.format(amount_fiat)
+        response = f'{amount_sats} sats sind aktuell {amount_fiat} {currency}'
+    else:
+        response = 'Ein Fehler ist aufgetreten. Bitte versuche es spaeter erneut.'
+    await message.channel.send(response)
+
 async def moscow_time(message):
     exchange_rates = __get_exchange_rates()
     if exchange_rates != -1:
@@ -37,6 +55,26 @@ async def price(message):
         response += f'\n\t{price_eur} EUR/BTC'
         price_chf = '{:,.2f}'.format(float(exchange_rates['CHF']))
         response += f'\n\t{price_chf} CHF/BTC'
+    else:
+        response = 'Ein Fehler ist aufgetreten. Bitte versuche es spaeter erneut.'
+    await message.channel.send(response)
+
+async def sats(message):
+    exchange_rates = __get_exchange_rates()
+    if exchange_rates != -1:
+        try:
+            currency = str(message.content.split(' ')[1])
+            if(currency.lower() == 'eur') or (currency.lower() == 'chf') or (currency.lower() == 'usd'):
+                currency = currency.upper()
+            else:
+                raise ValueError()
+            amount_fiat = float(message.content.split(' ')[2])
+        except:
+            await message.reply('Fehlerhafte Eingabe. \nBeispielaufruf: !sats eur 100')
+            return
+        amount_sats = '{:,.0f}'.format(amount_fiat/float(exchange_rates[currency]) * 100000000)
+        amount_fiat = '{:,.2f}'.format(amount_fiat)
+        response = f'{amount_fiat} {currency} sind aktuell {amount_sats} sats.'
     else:
         response = 'Ein Fehler ist aufgetreten. Bitte versuche es spaeter erneut.'
     await message.channel.send(response)

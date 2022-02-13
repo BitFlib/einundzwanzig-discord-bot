@@ -26,8 +26,7 @@ async def on_message(message):
     
     if msg.startswith('!mz') or msg.startswith('!moskauzeit'):
         '''
-        Returns the amount of sats you would receive
-        for 1 USD also known as moscow time and the 
+        Returns the amount of sats you would receive for 1 USD also known as moscow time and the 
         counterpart for EUR and CHF
         '''
         await price.moscow_time(message)
@@ -38,6 +37,24 @@ async def on_message(message):
         Returns the current price for 1 BTC in USD, EUR and CHF
         '''
         await price.price(message)
+        return
+
+    if msg.startswith('!sats'):
+        '''
+        Returns the amount of sats for a given currency and currency amount
+        parameters: [1]: currency, [2]: currency_amount
+        example: !sats eur 420.69
+        '''
+        await price.sats(message)
+        return
+
+    if msg.startswith('!usd') or msg.startswith('!eur') or msg.startswith('!chf'):
+        '''
+        Returns the amount of given currency (dependend on command) for a given amount of sats
+        parameters: [1]: sats_amount
+        example: !usd 100000
+        '''
+        await price.fiat(message)
         return
 
     '''

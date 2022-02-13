@@ -48,7 +48,7 @@ async def on_message(message):
         '''
         Returns the amount of sats for a given currency and currency amount
         parameters: [1]: currency, [2]: amount_fiat
-        example: !sats eur 420.69
+        example: !sats eur 420,69
         '''
         await price.sats(message)
         return

@@ -18,7 +18,10 @@ DISCORD_TOKEN=YOUR_SECRET_DISCORD_TOKEN
 3. execute `make run` to install all dependencies and run the bot
 
 ## Commands
-- `!moskauzeit` (or short `!mz`): Returns the amount of sats you would receive for 1 USD also known as moscow time and the counterpart for EUR and CHF
-- `!preis`: Returns the current price for 1 BTC in USD, EUR and CHF
-- `!sats`: Returns the amount of sats for a given currency and currency amount
-- `!usd`/`!eur`/`!chf`: Returns the amount of given currency (dependend on command) for a given amount of sats
+- price related
+    - `!moskauzeit` (or short `!mz`): Returns the amount of sats you would receive for 1 USD also known as moscow time and the counterpart for EUR and CHF
+    - `!preis`: Returns the current price for 1 BTC in USD, EUR and CHF
+    - `!sats`: Returns the amount of sats for a given currency and currency amount
+    - `!usd`/`!eur`/`!chf`: Returns the amount of given currency (dependend on command) for a given amount of sats
+- mempool related
+    - `!blockzeit` (or short `!bz`): Returns the current height tip of mainnet blockchain (also known as blocktime)
